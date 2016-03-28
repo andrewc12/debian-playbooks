@@ -1,15 +1,13 @@
 ---
 - name: Checking for previously added repositories
-  stat: path=/etc/apt/sources.list.d/ftp_es_debian_org_debian.list
+  stat: path=/etc/apt/sources.list.d/http_httpredir_debian_org_debian.list
   register: repos_present
 
 - name: Add contrib & non free repositories
-  apt_repository: repo='deb http://ftp.es.debian.org/debian/ {{ distribution_name }} main contrib non-free' state=present
-  when: repos_present == false
+  apt_repository: repo='deb http://httpredir.debian.org/debian {{ distribution_name }} main contrib non-free' state=present
   
 - name: Update apt cache
   apt: update_cache=yes
-  when: repos_present == false
   
 - name: Install libapache2-mod-fastcgi
   apt: pkg=libapache2-mod-fastcgi state=latest
