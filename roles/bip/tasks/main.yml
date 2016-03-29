@@ -1,0 +1,11 @@
+---
+- name: Install bip
+  apt: pkg=bit state=latest
+
+- name: Deploy new configuration
+  template: src=bip.conf.j2 dest=/etc/bip.conf owner=root group=bip mode=0640
+  notify: Restart bip
+  
+  - name: Enable bip
+  template: src=bip.j2 dest=/etc/default/bip owner=root group=root mode=0640
+  notify: Restart bip

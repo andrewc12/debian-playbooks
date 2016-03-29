@@ -1,0 +1,3 @@
+--- 
+- name: Restart bip
+  action: service name=bip state=restarted enabled=yes
