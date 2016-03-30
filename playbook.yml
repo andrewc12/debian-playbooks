@@ -2,7 +2,4 @@
   - hosts: all
     sudo: true
     roles:
-      - base
-      - apache
-      - apache-fastcgi
-      - mysql
+      - bip
