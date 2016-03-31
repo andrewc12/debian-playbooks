@@ -2,4 +2,8 @@
   - hosts: all
     sudo: true
     roles:
-      - bip
+      - base
+      - apache
+      - apache-fastcgi
+      - php
+      - pico-cms

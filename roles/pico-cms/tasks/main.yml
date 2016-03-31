@@ -1,0 +1,46 @@
+---
+- name: Create pico tmp directory
+  file: path=/tmp/pico state=directory
+
+- name: Create picoblog tmp directory
+  file: path=/tmp/picoblog-master state=directory
+
+- name: download pico
+  get_url: url=https://github.com/picocms/Pico/releases/download/v1.0.0-beta.2/pico-release-v1.0.0-beta.2.tar.gz dest=/tmp/pico-release-v1.0.0-beta.2.tar.gz
+
+- name: download website
+  get_url: url=https://github.com/andrewc12/picoblog/archive/master.zip dest=/tmp/master.zip
+
+- name: Extract pico
+  # Unarchive a file that needs to be downloaded (added in 2.0)
+  unarchive: src=/tmp/pico-release-v1.0.0-beta.2.tar.gz dest=/tmp/pico copy=no
+
+- name: Extract website
+  # Unarchive a file that needs to be downloaded (added in 2.0)
+  unarchive: src=/tmp/master.zip dest=/tmp/picoblog-master copy=no
+  
+- name: Create directory
+  file: path=/var/www/innestech.net/public_html/ state=directory owner=www-data group=www-data mode=0775 recurse=yes
+
+- name: Rsync pico
+  local_action: synchronize src=/tmp/pico/ dest=/var/www/innestech.net/public_html/
+
+- name: Rsync picoblog-content
+  local_action: synchronize src=/tmp/picoblog-master/picoblog-master/content/ dest=/var/www/innestech.net/public_html/content/
+
+- name: Rsync picoblog-themes
+  local_action: synchronize src=/tmp/picoblog-master/picoblog-master/themes/ dest=/var/www/innestech.net/public_html/themes/
+
+- name: fix owner
+  file: path=/var/www/innestech.net/public_html/ state=directory owner=www-data group=www-data recurse=yes
+
+- name: Enable innestech
+  template: src=innestech.net.conf.j2 dest=/etc/apache2/sites-available/innestech.net.conf owner=root group=root mode=0644
+
+- name: a2ensite innestech
+  command: a2ensite innestech.net
+  notify: Restart apache2
+
+- name: a2dissite 000default
+  command: a2dissite 000-default
+  notify: Restart apache2
