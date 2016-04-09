@@ -3,7 +3,3 @@
     sudo: true
     roles:
       - base
-      - apache
-      - apache-fastcgi
-      - php
-      - pico-cms
