@@ -1,133 +1,57 @@
+{% raw %}
 servers = (
-  { address = "eu.irc6.net"; chatnet = "IRCnet"; port = "6667"; },
-  { address = "open.ircnet.net"; chatnet = "IRCnet"; port = "6667"; },
-  { address = "irc.efnet.org"; chatnet = "EFNet"; port = "6667"; },
-  { 
-    address = "irc.undernet.org";
-    chatnet = "Undernet";
-    port = "6667";
-  },
-  { address = "irc.dal.net"; chatnet = "DALnet"; port = "6667"; },
-  { 
-    address = "irc.quakenet.org";
-    chatnet = "QuakeNet";
-    port = "6667";
-  },
+{% endraw %}
+{% for network in irc %}
+{% raw %}
   {
-    address = "irc.gamesurge.net";
-    chatnet = "GameSurge";
-    port = "6667";
-  },
-  { address = "irc.webchat.org"; chatnet = "WebChat"; port = "6667"; },
-  { address = "irc.rizon.net"; chatnet = "Rizon"; port = "6667"; },
-  { address = "irc.link-net.org"; chatnet = "LinkNet"; port = "6667"; },
-  { address = "silc.silcnet.org"; chatnet = "SILC"; port = "706"; },
-  {
-    address = "chat.freenode.net";
-    chatnet = "fn";
-    port = "6667";
+{% endraw %}
+    address = "{{ irc[network]['address'] }}";
+    chatnet = "{{ network }}";
+    port = "{{ irc[network]['port'] }}";
     use_ssl = "no";
     ssl_verify = "no";
-    autoconnect = "yes";
+    autoconnect = "{{ irc[network]['autoconnect'] }}";
+{% raw %}
   },
-  {
-    address = "irc.oftc.net";
-    chatnet = "OFTC";
-    port = "6667";
-    autoconnect = "yes";
-  },
-  {
-    address = "irc.chatrealm.net";
-    chatnet = "chatrealm";
-    port = "6667";
-    autoconnect = "yes";
-  }
+{% endraw %}
+{% endfor %}
+{% raw %}
 );
+{% endraw %}
 
+{% raw %}
 chatnets = {
-  IRCnet = {
-    type = "IRC";
-    max_kicks = "4";
-    max_msgs = "5";
-    max_whois = "4";
-    max_query_chans = "5";
-  };
-  EFNet = { 
-    type = "IRC";
-    max_kicks = "4";
-    max_msgs = "3";
-    max_whois = "1";
-  };
-  Undernet = {
-    type = "IRC";
-    max_kicks = "1";
-    max_msgs = "3";
-    max_whois = "30";
-  };
-  DALnet = {
-    type = "IRC";
-    max_kicks = "4";
-    max_msgs = "3";
-    max_whois = "30";
-  };
-  QuakeNet = {
-    type = "IRC";
-    max_kicks = "1";
-    max_msgs = "3";
-    max_whois = "30";
-  };
-  GameSurge = {
-    type = "IRC";
-    max_kicks = "1";
-    max_msgs = "3";
-    max_whois = "30";
-  };
-  WebChat = {
-    type = "IRC";
-    max_kicks = "1";
-    max_msgs = "3";
-    max_whois = "30";
-  };
-  Rizon = { 
-    type = "IRC";
-    max_kicks = "1";
-    max_msgs = "3";
-    max_whois = "30";
-  };
-  LinkNet = {
-    type = "IRC";
-    max_kicks = "1";
-    max_msgs = "3";
-    max_whois = "30";
-  };
-  SILC = { type = "SILC"; };
-  fn = {
-    type = "IRC";
-    nick = "wingman2";
-    autosendcmd = "/msg NickServ identify {{ bip_identify_password }}";
-  };
-  OFTC = {
-    type = "IRC";
-    nick = "wingman2";
-    max_kicks = "1";
-    max_msgs = "3";
-    max_whois = "30";
-  };
-  chatrealm = { type = "IRC"; nick = "wingman2"; };
-};
+{% endraw %}
+{% for network in irc %}
+  {{ network }}{% raw %} = {{% endraw %}
 
+    type = "IRC";
+    nick = "{{ irc[network]['nick'] }}";
+{% if irc[network]['autosendcmd'] is defined %}
+    autosendcmd = "{{ irc[network]['autosendcmd'] }}";
+{% endif %}
+{% raw %}  };{% endraw %}
+
+{% endfor %}
+{% raw %}
+};
+{% endraw %}
+
+{% raw %}
 channels = (
-  { name = "#irssi"; chatnet = "ircnet"; autojoin = "No"; },
-  { name = "silc"; chatnet = "silc"; autojoin = "No"; },
-  { name = "#linuxn00b"; chatnet = "fn"; autojoin = "yes"; },
-  { name = "#archlinux-arm"; chatnet = "fn"; autojoin = "yes"; },
-  { name = "#debian"; chatnet = "fn"; autojoin = "yes"; },
-  { name = "#bash"; chatnet = "fn"; autojoin = "yes"; },
-  { name = "#debian-offtopic"; chatnet = "fn"; autojoin = "yes"; },
-  { name = "#openmediavault"; chatnet = "fn"; autojoin = "yes"; },
-  { name = "#debian-arm"; chatnet = "OFTC"; autojoin = "yes"; },
-  { name = "#chat"; chatnet = "chatrealm"; autojoin = "yes"; }
+{% endraw %}
+{% for network in irc %}
+{% if irc[network]['channels'] is defined %}
+{% for channel in irc[network]['channels'] %}
+    {% raw %}{{% endraw %} name = "{{ channel }}"; chatnet = "{{ network }}";{% if irc[network]['channels'][channel]['autojoin'] is defined %} autojoin = "{{ irc[network]['channels'][channel]['autojoin'] }}";{% endif %}{% raw %} },{% endraw %}
+
+{% endfor %}
+{% endif %}
+{% endfor %}
+{% raw %}
 );
+{% endraw %}
+
 
 aliases = {
   J = "join";
