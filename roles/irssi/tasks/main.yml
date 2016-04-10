@@ -1,0 +1,9 @@
+---
+- name: Install irssi
+  apt: pkg=irssi state=latest
+
+- name: Create directory
+  file: path=/home/andrew/.irssi/ state=directory owner=andrew group=andrew mode=0700
+
+- name: Deploy configuration
+  template: src=config.j2 dest=/home/andrew/.irssi/config owner=andrew group=andrew mode=0640
