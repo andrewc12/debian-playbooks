@@ -1,0 +1,37 @@
+irc:
+    fn:
+        address: "chat.freenode.net"
+        port: "6667"
+        autoconnect: "yes"
+        nick: "wingman2"
+        autosendcmd: "/msg nickserv identify REDACTED"
+        channels:
+            "#linuxn00b":
+                pasword: "word yo"
+                autojoin: "yes"
+            "#archlinux-arm":
+                autojoin: "yes"
+            "#debian":
+                autojoin: "yes"
+            "#debian-offtopic":
+                autojoin: "yes"
+            "#bash":
+                autojoin: "yes"
+            "#openmediavault":
+                autojoin: "yes"   
+    OFTC:
+        address: "irc.oftc.net"
+        port: "6667"
+        autoconnect: "yes"
+        nick: "wingman2"
+        channels:
+            "#debian-arm":
+                autojoin: "yes"
+    chatrealm:
+        address:  "irc.chatrealm.net"
+        port: "6667"
+        autoconnect: "yes"
+        nick: "wingman2"
+        channels:
+            "#chat":
+                autojoin: "yes"
