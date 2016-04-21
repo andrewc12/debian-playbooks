@@ -1,58 +1,35 @@
-{% raw %}
 servers = (
-{% endraw %}
 {% for network in irc %}
-{% raw %}
   {
-{% endraw %}
     address = "{{ irc[network]['address'] }}";
     chatnet = "{{ network }}";
     port = "{{ irc[network]['port'] }}";
     use_ssl = "no";
     ssl_verify = "no";
     autoconnect = "{{ irc[network]['autoconnect'] }}";
-{% raw %}
   },
-{% endraw %}
 {% endfor %}
-{% raw %}
 );
-{% endraw %}
-
-{% raw %}
 chatnets = {
-{% endraw %}
 {% for network in irc %}
-  {{ network }}{% raw %} = {{% endraw %}
-
+  {{ network }} = {
     type = "IRC";
     nick = "{{ irc[network]['nick'] }}";
 {% if irc[network]['autosendcmd'] is defined %}
     autosendcmd = "{{ irc[network]['autosendcmd'] }}";
 {% endif %}
-{% raw %}  };{% endraw %}
-
+  };
 {% endfor %}
-{% raw %}
 };
-{% endraw %}
-
-{% raw %}
 channels = (
-{% endraw %}
 {% for network in irc %}
 {% if irc[network]['channels'] is defined %}
 {% for channel in irc[network]['channels'] %}
-    {% raw %}{{% endraw %} name = "{{ channel }}"; chatnet = "{{ network }}";{% if irc[network]['channels'][channel]['autojoin'] is defined %} autojoin = "{{ irc[network]['channels'][channel]['autojoin'] }}";{% endif %}{% raw %} },{% endraw %}
-
+    { name = "{{ channel }}"; chatnet = "{{ network }}";{% if irc[network]['channels'][channel]['autojoin'] is defined %} autojoin = "{{ irc[network]['channels'][channel]['autojoin'] }}";{% endif %} },
 {% endfor %}
 {% endif %}
 {% endfor %}
-{% raw %}
 );
-{% endraw %}
-
-
 aliases = {
   J = "join";
   WJOIN = "join -window";
