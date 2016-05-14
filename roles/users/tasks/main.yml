@@ -1,6 +1,9 @@
 ---
   - name: New user
-    user: name=myuser comment="My User"
+    user: name=myuser comment="My User" shell=/bin/bash
 
   - name: Placing key
     authorized_key: user=myuser key="{{ lookup('file', './files/authorized_keys.myuser.pub') }}"
+    
+  - name: Remove user
+    user: name=myuser state=absent remove=yes
