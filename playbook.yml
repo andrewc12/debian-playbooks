@@ -2,4 +2,8 @@
   - hosts: all
     sudo: true
     roles:
+      - base
       - users
+      - apache
+      - php
+      - pico-cms

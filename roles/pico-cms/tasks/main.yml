@@ -23,13 +23,16 @@
   file: path=/var/www/innestech.net/public_html/ state=directory owner=www-data group=www-data mode=0775 recurse=yes
 
 - name: Rsync pico
-  local_action: synchronize src=/tmp/pico/ dest=/var/www/innestech.net/public_html/
-
+  command: /usr/bin/rsync -avx /tmp/pico/ /var/www/innestech.net/public_html/
+#  local_action: synchronize src="/tmp/pico/" dest="/var/www/innestech.net/public_html/"
+  
 - name: Rsync picoblog-content
-  local_action: synchronize src=/tmp/picoblog-master/picoblog-master/content/ dest=/var/www/innestech.net/public_html/content/
+  command: /usr/bin/rsync -avx /tmp/picoblog-master/picoblog-master/content/ "/var/www/innestech.net/public_html/content/"
+#  local_action: synchronize src=/tmp/picoblog-master/picoblog-master/content/ dest=/var/www/innestech.net/public_html/content/
 
 - name: Rsync picoblog-themes
-  local_action: synchronize src=/tmp/picoblog-master/picoblog-master/themes/ dest=/var/www/innestech.net/public_html/themes/
+  command: /usr/bin/rsync -avx /tmp/picoblog-master/picoblog-master/themes/ "/var/www/innestech.net/public_html/themes/"
+#  local_action: synchronize src=/tmp/picoblog-master/picoblog-master/themes/ dest=/var/www/innestech.net/public_html/themes/
 
 - name: fix owner
   file: path=/var/www/innestech.net/public_html/ state=directory owner=www-data group=www-data recurse=yes
