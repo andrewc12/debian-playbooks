@@ -1,5 +1,5 @@
 ---
-  - name: Placing key
+  - name: New user
     user: name=myuser comment="My User"
 
   - name: Placing key
