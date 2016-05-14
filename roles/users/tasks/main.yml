@@ -1,6 +1,6 @@
 ---
   - name: Placing key
-    user: name=myuser comment="My User" group=wheel
+    user: name=myuser comment="My User"
 
   - name: Placing key
     authorized_key: user=myuser key="{{ lookup('file', './files/authorized_keys.myuser.pub') }}"
