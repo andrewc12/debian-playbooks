@@ -4,6 +4,9 @@
     roles:
       - base
       - users
+  - hosts: web
+    sudo: true
+    roles:
       - apache
       - php
       - pico-cms
