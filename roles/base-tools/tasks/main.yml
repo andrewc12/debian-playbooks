@@ -1,0 +1,20 @@
+---
+- name: Upgrade distribution
+  apt: update_cache=yes upgrade=no cache_valid_time=1800
+
+- name: Install base packages
+  apt: pkg={{ item }} state=latest
+  with_items:
+    - vim
+    - wget
+    - curl
+    - python-pycurl
+    - screen
+    - tree
+    - htop
+    - ack-grep
+    - rsync
+    - httpie
+    - ncdu
+    - backup-manager
+    - unzip
