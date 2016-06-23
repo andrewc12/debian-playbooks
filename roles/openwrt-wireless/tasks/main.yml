@@ -1,0 +1,4 @@
+---
+- name: Deploy new configuration
+  template: src=wireless.{{ openwrt_model }}.j2 dest=/etc/config/wireless owner=root group=root mode=0644
+  notify: Restart wireless

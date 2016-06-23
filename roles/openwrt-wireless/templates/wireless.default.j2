@@ -1,0 +1,17 @@
+config wifi-device 'radio0'
+	option type 'mac80211'
+	option hwmode '11g'
+	option path '{{ openwrt_chipset }}'
+	option country 'AU'
+	option channel '1'
+	option htmode 'HT40'
+	option txpower '18'
+
+config wifi-iface
+	option device 'radio0'
+	option network 'lan'
+	option mode 'ap'
+	option ssid 'WLAN'
+	option encryption 'psk2+ccmp'
+	option key '{{ wirelesskey }}'
+
