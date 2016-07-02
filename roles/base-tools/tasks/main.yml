@@ -1,5 +1,5 @@
 ---
-- name: Upgrade distribution
+- name: Update aptcache
   apt: update_cache=yes upgrade=no cache_valid_time=1800
 
 - name: Install base packages
